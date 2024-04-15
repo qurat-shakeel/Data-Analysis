@@ -94,10 +94,6 @@ nan_values_per_column = df.isna().sum()
 print("NaN values in each column:")
 print(nan_values_per_column)
 
-age_groups_positive = diabetes_positive.groupby(pd.cut(diabetes_positive['Age'], bins=range(0, 101, 10))).size()
-
-age_groups_negative = diabetes_negative.groupby(pd.cut(diabetes_negative['Age'], bins=range(0, 101, 10))).size()
-
 # Split the dataset into individuals with and without diabetes
 diabetes_positive = df[df['Outcome'] == 1]
 diabetes_negative = df[df['Outcome'] == 0]
@@ -117,3 +113,115 @@ age_groups_combined['Diabetes Proportion'] = age_groups_combined['Diabetes Posit
 max_prone_age_group = age_groups_combined['Diabetes Proportion'].idxmax()
 
 print("Age group most prone to diabetes:", max_prone_age_group)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Correlation Analysis
+correlation = df['Pregnancies'].corr(df['Outcome'])
+print("Correlation coefficient between Pregnancies and Outcome:", correlation)
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='Pregnancies', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('Number of Pregnancies')
+plt.title('Relationship between Pregnancies and Outcome')
+plt.show()
+
+# Correlation Analysis
+correlation = df['Glucose'].corr(df['Outcome'])
+print("Correlation coefficient between Glucose and Outcome:", correlation)
+You can perform logistic regression to model the relationship between Glucose and Outcome using libraries like scikit-learn.
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='Glucose', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('Glucose Level')
+plt.title('Relationship between Glucose Level and Outcome')
+plt.show()
+
+# Correlation Analysis
+correlation = df['BloodPressure'].corr(df['Outcome'])
+print("Correlation coefficient between Blood Pressure and Outcome:", correlation)
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='BloodPressure', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('Blood Pressure')
+plt.title('Relationship between Blood Pressure and Outcome')
+plt.show()
+
+# Calculate the minimum and maximum values of skin thickness
+min_skin_thickness = df['SkinThickness'].min()
+max_skin_thickness = df['SkinThickness'].max()
+
+print("Minimum Skin Thickness:", min_skin_thickness)
+print("Maximum Skin Thickness:", max_skin_thickness)
+
+# Correlation Analysis
+correlation = df['SkinThickness'].corr(df['Outcome'])
+print("Correlation coefficient between Skin Thickness and Outcome:", correlation)
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='SkinThickness', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('Skin Thickness')
+plt.title('Relationship between Skin Thickness and Outcome')
+plt.show()
+
+# Correlation Analysis
+correlation = df['Insulin'].corr(df['Outcome'])
+print("Correlation coefficient between Insulin and Outcome:", correlation)
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='Insulin', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('Insulin Level')
+plt.title('Relationship between Insulin Level and Outcome')
+plt.show()
+
+# Correlation Analysis
+correlation = df['BMI'].corr(df['Outcome'])
+print("Correlation coefficient between BMI and Outcome:", correlation)
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='BMI', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('BMI')
+plt.title('Relationship between BMI and Outcome')
+plt.show()
+
+# Correlation Analysis
+correlation = df['DiabetesPedigreeFunction'].corr(df['Outcome'])
+print("Correlation coefficient between Diabetes Pedigree Function and Outcome:", correlation)
+
+# Logistic Regression (optional)
+# You can perform logistic regression to model the relationship between DPF and Outcome using libraries like scikit-learn.
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='DiabetesPedigreeFunction', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('Diabetes Pedigree Function')
+plt.title('Relationship between Diabetes Pedigree Function and Outcome')
+plt.show()
+
+# Correlation Analysis
+correlation = df['Age'].corr(df['Outcome'])
+print("Correlation coefficient between Age and Outcome:", correlation)
+
+# Logistic Regression (optional)
+# You can perform logistic regression to model the relationship between Age and Outcome using libraries like scikit-learn.
+
+# Visualization
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='Outcome', y='Age', data=df)
+plt.xlabel('Diabetes Outcome')
+plt.ylabel('Age')
+plt.title('Relationship between Age and Outcome')
+plt.show()
