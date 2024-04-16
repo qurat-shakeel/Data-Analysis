@@ -239,3 +239,53 @@ plt.figure(figsize=(12, 8))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
 plt.title('Heatmap of Diabetic Dataset')
 plt.show()
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+# Correlation Analysis between Glucose and Insulin
+glucose_insulin_corr = df['Glucose'].corr(df['Insulin'])
+print("Correlation between Glucose and Insulin:", glucose_insulin_corr)
+
+# Visualization: Scatter plot for Glucose vs. Insulin
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='Glucose', y='Insulin', data=df)
+plt.title('Relationship between Glucose and Insulin')
+plt.xlabel('Glucose')
+plt.ylabel('Insulin')
+plt.show()
+
+# Visualization: Scatter plot for Glucose vs. Insulin with Outcome
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='Glucose', y='Insulin', hue='Outcome', data=df, palette='coolwarm')
+plt.title('Relationship between Glucose and Insulin with Outcome')
+plt.xlabel('Glucose')
+plt.ylabel('Insulin')
+plt.legend(title='Outcome')
+plt.show()
+
+# Visualization: Scatter plot for Pregnancies vs. BMI
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='Pregnancies', y='BMI', data=df)
+plt.title('Relationship between Pregnancies and BMI')
+plt.xlabel('Pregnancies')
+plt.ylabel('BMI')
+plt.show()
+
+# Visualization: Scatter plot for Pregnancies vs. Age
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='Pregnancies', y='Age', data=df)
+plt.title('Relationship between Pregnancies and Age')
+plt.xlabel('Pregnancies')
+plt.ylabel('Age')
+plt.show()
+
+# Visualization: Box plot for Pregnancies with Outcome
+plt.figure(figsize=(8, 6))
+sns.boxplot(x='Outcome', y='Pregnancies', data=df)
+plt.title('Distribution of Pregnancies based on Outcome')
+plt.xlabel('Outcome')
+plt.ylabel('Pregnancies')
+plt.show()
