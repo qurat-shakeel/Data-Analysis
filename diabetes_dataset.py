@@ -289,3 +289,57 @@ plt.title('Distribution of Pregnancies based on Outcome')
 plt.xlabel('Outcome')
 plt.ylabel('Pregnancies')
 plt.show()
+
+# Count the number of patients who are diabetic (Outcome == 1)
+diabetic_patients = df[df['Outcome'] == 1]
+num_diabetic_patients = diabetic_patients.shape[0]
+
+print("Number of patients who are diabetic:", num_diabetic_patients)
+
+# Calculate the total number of patients
+total_patients = df.shape[0]
+
+# Calculate the number of patients who are diabetic (Outcome == 1)
+diabetic_patients = df[df['Outcome'] == 1]
+num_diabetic_patients = diabetic_patients.shape[0]
+
+# Calculate the percentage of patients who are diabetic
+percentage_diabetic = (num_diabetic_patients / total_patients) * 100
+
+# Plot a pie chart
+labels = ['Diabetic', 'Non-Diabetic']
+sizes = [percentage_diabetic, 100 - percentage_diabetic]
+colors = ['#ff9999', '#66b3ff']
+explode = (0.1, 0)  # explode the 1st slice (Diabetic)
+
+plt.figure(figsize=(8, 6))
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+plt.title('Percentage of Patients Who are Diabetic')
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.show()
+
+# Filter the dataset for diabetic patients with age between 20 and 45
+diabetic_patients = df[(df['Outcome'] == 1) & (df['Age'] >= 20) & (df['Age'] <= 45)]
+
+# Calculate the total number of diabetic patients with age between 20 and 45
+total_diabetic_patients = diabetic_patients.shape[0]
+
+# Calculate the total number of diabetic patients
+total_diabetic = df[df['Outcome'] == 1].shape[0]
+
+# Calculate the percentage of patients who are diabetic and have age between 20 and 45
+percentage_diabetic_age_20_to_45 = (total_diabetic_patients / total_diabetic) * 100
+
+print("Percentage of diabetic patients with age between 20 to 45:", percentage_diabetic_age_20_to_45)
+
+# Plot a pie chart
+labels = ['Diabetic Patients (Age 20-45)', 'Other Diabetic Patients']
+sizes = [percentage_diabetic_age_20_to_45, 100 - percentage_diabetic_age_20_to_45]
+colors = ['#ff9999', '#66b3ff']
+explode = (0.1, 0)  # explode the 1st slice
+
+plt.figure(figsize=(8, 6))
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+plt.title('Percentage of Diabetic Patients with Age between 20 to 45')
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+plt.show()
