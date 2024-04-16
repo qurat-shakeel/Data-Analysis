@@ -131,7 +131,6 @@ plt.show()
 # Correlation Analysis
 correlation = df['Glucose'].corr(df['Outcome'])
 print("Correlation coefficient between Glucose and Outcome:", correlation)
-You can perform logistic regression to model the relationship between Glucose and Outcome using libraries like scikit-learn.
 
 # Visualization
 plt.figure(figsize=(10, 6))
@@ -224,4 +223,19 @@ sns.boxplot(x='Outcome', y='Age', data=df)
 plt.xlabel('Diabetes Outcome')
 plt.ylabel('Age')
 plt.title('Relationship between Age and Outcome')
+plt.show()
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+
+# Calculate correlation matrix
+corr_matrix = df.corr()
+
+# Plot heatmap
+plt.figure(figsize=(12, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
+plt.title('Heatmap of Diabetic Dataset')
 plt.show()
