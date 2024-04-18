@@ -323,6 +323,13 @@ diabetic_patients = df[(df['Outcome'] == 1) & (df['Age'] >= 20) & (df['Age'] <= 
 
 # Calculate the total number of diabetic patients with age between 20 and 45
 total_diabetic_patients = diabetic_patients.shape[0]
+print(total_diabetic_patients)
+
+# Filter the dataset for diabetic patients with age between 20 and 45
+diabetic_patients = df[(df['Outcome'] == 1) & (df['Age'] >= 20) & (df['Age'] <= 45)]
+
+# Calculate the total number of diabetic patients with age between 20 and 45
+total_diabetic_patients = diabetic_patients.shape[0]
 
 # Calculate the total number of diabetic patients
 total_diabetic = df[df['Outcome'] == 1].shape[0]
