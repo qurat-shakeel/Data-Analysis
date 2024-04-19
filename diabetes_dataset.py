@@ -25,6 +25,11 @@ max_age = df['Age'].max()
 
 print("Maximum age of records in the Pima Indian Diabetes Dataset:", max_age)
 
+# Calculate the minimum age
+min_age = df['Age'].min()
+
+print("Minimum age of records in the Pima Indian Diabetes Dataset:", min_age)
+
 # Calculate the number of missing values in the "pregnancies" column
 missing_pregnancies = df['Pregnancies'].isnull().sum()
 
@@ -114,38 +119,83 @@ max_prone_age_group = age_groups_combined['Diabetes Proportion'].idxmax()
 
 print("Age group most prone to diabetes:", max_prone_age_group)
 
+
+
+# Filter the dataset to select only  diabetic females
+female_data = df[df['Outcome'] == 1]
+
+# Define age groups
+age_bins = [20, 30, 40, 50, 60, 70, 80, 90]  # Define age bins as needed
+
+# Count the number of females in each age group
+female_counts = female_data.groupby(pd.cut(female_data['Age'], age_bins)).size()
+
+print("Number of females in different age groups with diabetes:")
+print(female_counts)
+
+# Filter the dataset to select females without diabetes
+female_data = df[df['Outcome'] == 0]
+# Define age groups
+age_bins = [20, 30, 40, 50, 60, 70, 80, 90]  # Define age bins as needed
+
+# Count the number of females in each age group
+female_counts = female_data.groupby(pd.cut(female_data['Age'], age_bins)).size()
+
+print("Number of females in different age groups without diabetes:")
+print(female_counts)
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+# Count the number of females in each age group
+female_counts = df['Age'].value_counts().sort_index()
+
+# Plotting the bar graph
+plt.figure(figsize=(10,3))
+plt.bar(female_counts.index, female_counts.values, color='pink')
+
+# Adding labels and title
+plt.title('Number of Females in Different Age Groups')
+plt.xlabel('Age')
+plt.ylabel('Number of Females')
+
+# Displaying the plot
+plt.grid(True)
+plt.show()
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-# Correlation Analysis
+# Correlation Analysis between Pregnancies and Outcome
 correlation = df['Pregnancies'].corr(df['Outcome'])
 print("Correlation coefficient between Pregnancies and Outcome:", correlation)
 
 # Visualization
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(5,3))
 sns.boxplot(x='Outcome', y='Pregnancies', data=df)
 plt.xlabel('Diabetes Outcome')
 plt.ylabel('Number of Pregnancies')
 plt.title('Relationship between Pregnancies and Outcome')
 plt.show()
 
-# Correlation Analysis
+# Correlation Analysis between Glucose Level and Outcome
 correlation = df['Glucose'].corr(df['Outcome'])
 print("Correlation coefficient between Glucose and Outcome:", correlation)
 
 # Visualization
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(5,4))
 sns.boxplot(x='Outcome', y='Glucose', data=df)
 plt.xlabel('Diabetes Outcome')
 plt.ylabel('Glucose Level')
 plt.title('Relationship between Glucose Level and Outcome')
 plt.show()
 
-# Correlation Analysis
+# Correlation Analysis between Blood Pressure and Outcome
 correlation = df['BloodPressure'].corr(df['Outcome'])
 print("Correlation coefficient between Blood Pressure and Outcome:", correlation)
 
 # Visualization
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(5,4))
 sns.boxplot(x='Outcome', y='BloodPressure', data=df)
 plt.xlabel('Diabetes Outcome')
 plt.ylabel('Blood Pressure')
@@ -159,31 +209,31 @@ max_skin_thickness = df['SkinThickness'].max()
 print("Minimum Skin Thickness:", min_skin_thickness)
 print("Maximum Skin Thickness:", max_skin_thickness)
 
-# Correlation Analysis
+# Correlation Analysis between Skin Thickness and Outcome
 correlation = df['SkinThickness'].corr(df['Outcome'])
 print("Correlation coefficient between Skin Thickness and Outcome:", correlation)
 
 # Visualization
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(5,3))
 sns.boxplot(x='Outcome', y='SkinThickness', data=df)
 plt.xlabel('Diabetes Outcome')
 plt.ylabel('Skin Thickness')
 plt.title('Relationship between Skin Thickness and Outcome')
 plt.show()
 
-# Correlation Analysis
+# Correlation Analysis between Insulin and Outcome
 correlation = df['Insulin'].corr(df['Outcome'])
 print("Correlation coefficient between Insulin and Outcome:", correlation)
 
 # Visualization
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(4,4))
 sns.boxplot(x='Outcome', y='Insulin', data=df)
 plt.xlabel('Diabetes Outcome')
 plt.ylabel('Insulin Level')
 plt.title('Relationship between Insulin Level and Outcome')
 plt.show()
 
-# Correlation Analysis
+# Correlation Analysis  between BMI and Outcome
 correlation = df['BMI'].corr(df['Outcome'])
 print("Correlation coefficient between BMI and Outcome:", correlation)
 
@@ -195,7 +245,7 @@ plt.ylabel('BMI')
 plt.title('Relationship between BMI and Outcome')
 plt.show()
 
-# Correlation Analysis
+# Correlation Analysis between Diabetes Pedigree Function and Outcome
 correlation = df['DiabetesPedigreeFunction'].corr(df['Outcome'])
 print("Correlation coefficient between Diabetes Pedigree Function and Outcome:", correlation)
 
@@ -210,7 +260,7 @@ plt.ylabel('Diabetes Pedigree Function')
 plt.title('Relationship between Diabetes Pedigree Function and Outcome')
 plt.show()
 
-# Correlation Analysis
+# Correlation Analysis between Age and Outcome
 correlation = df['Age'].corr(df['Outcome'])
 print("Correlation coefficient between Age and Outcome:", correlation)
 
@@ -229,13 +279,11 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
-
 # Calculate correlation matrix
 corr_matrix = df.corr()
 
 # Plot heatmap
-plt.figure(figsize=(12, 8))
+plt.figure(figsize=(6,6))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
 plt.title('Heatmap of Diabetic Dataset')
 plt.show()
@@ -283,7 +331,7 @@ plt.ylabel('Age')
 plt.show()
 
 # Visualization: Box plot for Pregnancies with Outcome
-plt.figure(figsize=(8, 6))
+plt.figure(figsize=(5,3))
 sns.boxplot(x='Outcome', y='Pregnancies', data=df)
 plt.title('Distribution of Pregnancies based on Outcome')
 plt.xlabel('Outcome')
@@ -309,12 +357,12 @@ percentage_diabetic = (num_diabetic_patients / total_patients) * 100
 # Plot a pie chart
 labels = ['Diabetic', 'Non-Diabetic']
 sizes = [percentage_diabetic, 100 - percentage_diabetic]
-colors = ['#ff9999', '#66b3ff']
-explode = (0.1, 0)  # explode the 1st slice (Diabetic)
+colors = ['red', 'skyblue']
 
-plt.figure(figsize=(8, 6))
-plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-plt.title('Percentage of Patients Who are Diabetic')
+
+plt.figure(figsize=(4,4))
+plt.pie(sizes,  labels=labels, colors=colors, autopct='%1.1f%%', startangle=0)
+plt.title('Percentage of Patients Who are Diabetic and Non Diabetic')
 plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 plt.show()
 
