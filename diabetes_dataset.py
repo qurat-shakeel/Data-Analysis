@@ -88,8 +88,6 @@ import numpy as np
 # Replace zero values with NaN
 df.replace(0, np.nan, inplace=True)
 
-# Now, all zero values in the DataFrame have been replaced with NaN
-
 # Calculate the total number of NaN values
 total_nan_values = df.isna().sum().sum()
 print("Total NaN values in the dataset:", total_nan_values)
@@ -99,25 +97,7 @@ nan_values_per_column = df.isna().sum()
 print("NaN values in each column:")
 print(nan_values_per_column)
 
-# Split the dataset into individuals with and without diabetes
-diabetes_positive = df[df['Outcome'] == 1]
-diabetes_negative = df[df['Outcome'] == 0]
 
-# Calculate the proportion of individuals with diabetes for each age group
-age_groups_positive = diabetes_positive.groupby(pd.cut(diabetes_positive['Age'], bins=range(0, 101, 10))).size()
-age_groups_negative = diabetes_negative.groupby(pd.cut(diabetes_negative['Age'], bins=range(0, 101, 10))).size()
-
-# Combine the counts of individuals with and without diabetes for each age group
-age_groups_combined = pd.concat([age_groups_positive, age_groups_negative], axis=1)
-age_groups_combined.columns = ['Diabetes Positive', 'Diabetes Negative']
-
-# Calculate the proportion of individuals with diabetes for each age group
-age_groups_combined['Diabetes Proportion'] = age_groups_combined['Diabetes Positive'] / (age_groups_combined['Diabetes Positive'] + age_groups_combined['Diabetes Negative'])
-
-# Find the age group with the highest proportion of individuals with diabetes
-max_prone_age_group = age_groups_combined['Diabetes Proportion'].idxmax()
-
-print("Age group most prone to diabetes:", max_prone_age_group)
 
 
 
@@ -125,7 +105,7 @@ print("Age group most prone to diabetes:", max_prone_age_group)
 female_data = df[df['Outcome'] == 1]
 
 # Define age groups
-age_bins = [20, 30, 40, 50, 60, 70, 80, 90]  # Define age bins as needed
+age_bins = [20, 30, 40, 50, 60, 70, 80, 90]
 
 # Count the number of females in each age group
 female_counts = female_data.groupby(pd.cut(female_data['Age'], age_bins)).size()
@@ -146,8 +126,6 @@ print(female_counts)
 
 import pandas as pd
 import matplotlib.pyplot as plt
-
-
 # Count the number of females in each age group
 female_counts = df['Age'].value_counts().sort_index()
 
@@ -264,9 +242,6 @@ plt.show()
 correlation = df['Age'].corr(df['Outcome'])
 print("Correlation coefficient between Age and Outcome:", correlation)
 
-# Logistic Regression (optional)
-# You can perform logistic regression to model the relationship between Age and Outcome using libraries like scikit-learn.
-
 # Visualization
 plt.figure(figsize=(10, 6))
 sns.boxplot(x='Outcome', y='Age', data=df)
@@ -312,22 +287,6 @@ plt.title('Relationship between Glucose and Insulin with Outcome')
 plt.xlabel('Glucose')
 plt.ylabel('Insulin')
 plt.legend(title='Outcome')
-plt.show()
-
-# Visualization: Scatter plot for Pregnancies vs. BMI
-plt.figure(figsize=(8, 6))
-sns.scatterplot(x='Pregnancies', y='BMI', data=df)
-plt.title('Relationship between Pregnancies and BMI')
-plt.xlabel('Pregnancies')
-plt.ylabel('BMI')
-plt.show()
-
-# Visualization: Scatter plot for Pregnancies vs. Age
-plt.figure(figsize=(8, 6))
-sns.scatterplot(x='Pregnancies', y='Age', data=df)
-plt.title('Relationship between Pregnancies and Age')
-plt.xlabel('Pregnancies')
-plt.ylabel('Age')
 plt.show()
 
 # Visualization: Box plot for Pregnancies with Outcome
@@ -398,3 +357,23 @@ plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%',
 plt.title('Percentage of Diabetic Patients with Age between 20 to 45')
 plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 plt.show()
+
+# Split the dataset into individuals with and without diabetes
+diabetes_positive = df[df['Outcome'] == 1]
+diabetes_negative = df[df['Outcome'] == 0]
+
+# Calculate the proportion of individuals with diabetes for each age group
+age_groups_positive = diabetes_positive.groupby(pd.cut(diabetes_positive['Age'], bins=range(0, 101, 10))).size()
+age_groups_negative = diabetes_negative.groupby(pd.cut(diabetes_negative['Age'], bins=range(0, 101, 10))).size()
+
+# Combine the counts of individuals with and without diabetes for each age group
+age_groups_combined = pd.concat([age_groups_positive, age_groups_negative], axis=1)
+age_groups_combined.columns = ['Diabetes Positive', 'Diabetes Negative']
+
+# Calculate the proportion of individuals with diabetes for each age group
+age_groups_combined['Diabetes Proportion'] = age_groups_combined['Diabetes Positive'] / (age_groups_combined['Diabetes Positive'] + age_groups_combined['Diabetes Negative'])
+
+# Find the age group with the highest proportion of individuals with diabetes
+max_prone_age_group = age_groups_combined['Diabetes Proportion'].idxmax()
+
+print("Age group most prone to diabetes:", max_prone_age_group)
