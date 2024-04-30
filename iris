@@ -1,0 +1,14 @@
+# Check if the DataFrames are empty
+print("Number of rows in iris_setosa:", len(iris_setosa))
+print("Number of rows in iris_virginica:", len(iris_virginica))
+print("Number of rows in iris_versicolor:", len(iris_versicolor))
+
+# Check if the column "PetalLengthCm" exists in each DataFrame
+print("Columns in iris_setosa:", iris_setosa.columns)
+print("Columns in iris_virginica:", iris_virginica.columns)
+print("Columns in iris_versicolor:", iris_versicolor.columns)
+
+# Check unique values in the "PetalLengthCm" column
+print("Unique values in iris_setosa['PetalLengthCm']:", iris_setosa["PetalLengthCm"].unique())
+print("Unique values in iris_virginica['PetalLengthCm']:", iris_virginica["PetalLengthCm"].unique())
+print("Unique values in iris_versicolor['PetalLengthCm']:", iris_versicolor["PetalLengthCm"].unique())
