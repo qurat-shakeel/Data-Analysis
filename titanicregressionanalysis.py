@@ -22,7 +22,7 @@ df = pd.read_csv('train.csv')
 
 df
 
-features = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']
+features = ['Pclass', 'Sex', 'Age', 'SibSp','Parch']
 X = df[features]
 y = df['Survived']
 
@@ -38,21 +38,21 @@ categorical_transformer = Pipeline(steps=[
 
 preprocessor = ColumnTransformer(
     transformers=[
-        ('num', numerical_transformer, ['Age', 'SibSp', 'Parch', 'Fare']),
-        ('cat', categorical_transformer, ['Pclass', 'Sex', 'Embarked'])
+        ('num', numerical_transformer, ['Age', 'SibSp', 'Parch']),
+        ('cat', categorical_transformer, ['Pclass', 'Sex'])
     ])
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# model training
 
 lr_pipeline = Pipeline(steps=[('preprocessor', preprocessor),
                               ('classifier', LogisticRegression(random_state=42))])
 
 lr_pipeline.fit(X_train, y_train)
 
+
 linreg_pipeline = Pipeline(steps=[('preprocessor', preprocessor),
                                   ('regressor', LinearRegression())])
+
 
 linreg_pipeline.fit(X_train, y_train)
 
